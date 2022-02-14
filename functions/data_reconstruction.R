@@ -39,7 +39,6 @@ data_reconstruct = function(dataset, end_year) {
     # 2.测试代码，正式代码中应注释掉  ####
     # yy = "2010"
     # mm="201006"
-    # 
 
     # 获得当月调查数据集
     data_month_temp = mysheets[[yy]][[mm]]
@@ -77,16 +76,17 @@ data_reconstruct = function(dataset, end_year) {
       }
     }
     
-    # 获得当前调查月份下所有的物种名,第7列为物种名
+    # 获得当前调查月份下所有**原始记录中的物种名**,第7列为物种名
     spp_name_month_raw = data.frame(data_month_temp[, 7])[, 1]
-    # 将原始数据的中文名与IOC名录的中文名匹配，转换为对应的拉丁名
-    # 如果匹配不上，则用NA表示
-    spp_name_month = as.character(TILBirdList_unique$LatinWJ[match(spp_name_month_raw,
-                                                            TILBirdList_unique$Chinese)])
+    
+    # 将**原始数据的中文名**与包括所有物种名的鸟类信息名录TILBirdList_raw匹配
+    # 转换为对应的拉丁名,如果匹配不上，则用NA表示
+    spp_name_month = as.character(TILBirdList_raw$LatinWJ[match(spp_name_month_raw,
+                                                                   TILBirdList_raw$Chinese)])
     #cbind(name.month,latin.name.month)
-    # 获得原始数据中文名与TILBirdList_unique中中文名匹配成功的物种名索引
+    # 获得**原始数据中文名**与TILBirdList_raw中中文名匹配成功的物种名索引
     # 以便提取有效物种的数据
-    spp_match_idx = spp_name_month_raw %in% TILBirdList_unique$Chinese
+    spp_match_idx = spp_name_month_raw %in% TILBirdList_raw$Chinese
     
     # 基于当月调查数据集中的1,2,3,4,5,6,8,13列和千岛湖鸟类物种名录构建新的数据表
     # 1，2，3，4列分别为样线名称、调查日期、调查起始时间、调查终止时间;
@@ -526,6 +526,8 @@ abundance_month = function(large_bird_data_table,
     sum(x, na.rm = T))
   # 所选择36个岛上被调查到的物种拉丁名
   SppIsl36 = names(SppIsl36.idx)[SppIsl36.idx != 0]
+  # 此处所有的物种名已经过核对转化为拉丁名，因此后续物种名转换可以参考
+  # TILBirdList_unique.txt表
   # 进行物种名录判断，判断所有物种名是否都在TILBirdList_unique中
   # 如果显示character(0)，代表都在IOC名录
   SppIsl36[!SppIsl36 %in% TILBirdList_unique$LatinWJ]
