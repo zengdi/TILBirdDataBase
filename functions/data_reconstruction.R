@@ -362,10 +362,10 @@ abundance_month = function(large_bird_data_table,
   island36.tran = trans_req[, 1]
   
   # 6.测试代码，运行中需要注释 ####
-  spp_all = sp_all
-  transect_all = tran_all
-  large_bird_data_table = large_bird_data_table
-  rep_seq = rep_seq
+  # spp_all = sp_all
+  # transect_all = tran_all
+  # large_bird_data_table = large_bird_data_table
+  # rep_seq = rep_seq
 
   # 建立每月，各条样线,每次调查的数据表，列为样线名，行为物种 （样线水平数据集）######
   # bird_dataset代表一个大型四维矩阵：
