@@ -115,7 +115,7 @@ large_bird_data_table = data_re$final_bird_data
 tran_cov_table = tran_cov_create(large_bird_data_table)
 write.xlsx(tran_cov_table,paste(path_database_dir,"transect_covariate.xlsx",sep="/"))
 
-# 去掉为保留没有调查到物种的调查次数据所设置的"无"
+# 提供生成最终鸟类数据库所需要的物种、样线和调查次数信息
 sp_all = data_re$sp_all
 tran_all = data_re$transect_all
 rep_seq = data_re$rep_seq

@@ -78,6 +78,7 @@ data_check = function(monthName,mysheets){
   # 鸟类物种名核对
   # 物种名核对表：spp_check_table
   spp_check_table = data.frame()
+  # 千岛湖鸟类调查中记录到的任何鸟名向量（包含错记、无法识别的鸟名）
   spp_all = c()
   
   
