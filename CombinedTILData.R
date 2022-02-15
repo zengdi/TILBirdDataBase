@@ -20,6 +20,8 @@
 # 清除上次结果命令，在debug和测试中不建议运行！！！
 system("rm ./final_database/*")
 system("rm ./check_tables/*")
+# 清除所有原有的环境变量，保证所有的数据和代码都是最新读取的
+remove(list=ls())
 # 获得工程所在目录
 path_base = getwd()
 # 建立原始文档所在目录变量，用于读取原始鸟调数据
