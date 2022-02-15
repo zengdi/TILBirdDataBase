@@ -60,19 +60,10 @@ data_reconstruct = function(dataset, end_year) {
     for (k in 1:nrow(data_month_temp)) {
       # 获得每条数据
       record_tmp = data_month_temp[k, ]
-      # 判断物种信息是否为"空"或为NULL
+      # 判断物种信息是否为"空"，若为空则修改为无令其进入
+      # record_sp_abun_check_table中，方便后续数据核对和补充
       if (is.na(record_tmp$种类) | is.null(record_tmp$种类) | record_tmp$种类=="无") {
-        if (is.na(record_tmp$数量)) {
-          next
-          # 如果否，对数量进行判断是否大于等于1
-        } else if (record_tmp$数量  >= 1) {
-          # 如果是，则物种信息应补充为"未知物种"
-          data_month_temp[k, ]$种类  = "未知物种"
-          # 如果否，则判断数量是为0，NULL和NA的将其物种信息补充为无
-        } else if (record_tmp$数量  == 0 |
-                   is.null(record_tmp$数量) | is.na(record_tmp$数量)) {
-          data_month_temp[k, ]$种类  = "无"
-        }
+        data_month_temp[k, ]$种类  = "无"
       }
     }
     
