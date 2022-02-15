@@ -252,6 +252,8 @@ Chinese,LatinWJ,English,Resident,Landbird
 虎斑地鸫,Zoothera dauma,Golden Mountain Thrush,W,1
 白眉地鸫,Zoothera sibirica,Siberian Thrush,P,1
 暗绿绣眼鸟,Zosterops japonicus,Japanese White-eye,R,1
-白眉鸫,Turdus obscurus,Eyebrowed Thrush,W,1
+点胸鸦雀,Paradoxornis guttaticollis,Spot-breasted Parrotbill,R,1
+白眉鸫,Turdus obscurus,Eyebrowed Thrush,P,1
+丽星鹩鹛,Spelaeornis formosus,Spotted Wren-babbler,R,1
 黄嘴栗啄木鸟,Blythipicus pyrrhotis,Bay Woodpecker,R,1
 无,无,无,R,1
