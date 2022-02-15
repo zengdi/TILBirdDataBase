@@ -90,7 +90,7 @@ data_check = function(monthName,mysheets){
   # 遍历所有调查月份
   for(i in 1:length(monthName)){
     # 1. 测试代码,需要注释后运行 #####
-    # i = 85
+    # i = 28
     # 获得年
     yy = names(monthName[i])
     # 获得月
@@ -312,7 +312,21 @@ data_check = function(monthName,mysheets){
     if (dim_temp[1] == sum(table(mysheets[[yy]][[mm]][,8]))) {
       dim_check_table[mm,11] = 'ok'
     } else {
-      dim_check_table[mm,11] = dim_temp[1]-sum(table(mysheets[[yy]][[mm]][,8]))
+      ## 把物种为空的记录去掉，保留真实多度有问题的记录
+      # 物种记录为"无"的记录数据，这些需要在多度记录中去掉
+      if(is.na(table(mysheets[[yy]][[mm]][,7])["无"])){
+        num_sp_none = 0
+      }else{
+        num_sp_none = as.numeric(table(mysheets[[yy]][[mm]][,7])["无"])
+      }
+      num_check_abun = dim_temp[1]-sum(table(mysheets[[yy]][[mm]][,8]))-num_sp_none
+      # 如果多度为空的与物种记录为无的数量一致，则代表无需再次核对
+      if(num_check_abun==0){
+        dim_check_table[mm,11] = "ok"
+        # 否则剩下的就是多度有问题的记录，需要再次核对
+      }else{
+        dim_check_table[mm,11] = num_check_abun
+      }
     }
     # (9)主调查人列是否有空
     if (dim_temp[1] == sum(table(mysheets[[yy]][[mm]][,13]))) {
