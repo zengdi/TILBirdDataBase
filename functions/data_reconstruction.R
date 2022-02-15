@@ -10,7 +10,7 @@ data_reconstruct = function(dataset, end_year) {
   
   # 维度校对表dim_check_new，原变量名：breed_dim_check
   dim_check_new = data.frame(check_list[['dim_check']])[, 1:3]
-  # 记录调查中所有的物种名
+  # 记录千岛湖调查中所有的非重复鸟类物种名
   spp_all = character()
   # 记录调查中所有的样线名
   transect_all = character()
