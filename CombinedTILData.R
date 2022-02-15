@@ -17,11 +17,13 @@
 # 具体的使用规则及数据要求详见README.txt
 
 ##### directory path construction #####
-#system("rm ./final_database/*")
+# 清除上次结果命令，在debug和测试中不建议运行！！！
+system("rm ./final_database/*")
+system("rm ./check_tables/*")
 # 获得工程所在目录
 path_base = getwd()
 # 建立原始文档所在目录变量，用于读取原始鸟调数据
-path_raw_excel_dir = paste(path_base,'20220208raw_data',sep='/')
+path_raw_excel_dir = paste(path_base,'20220214raw_data',sep='/')
 # 建立最终数据库所在目录变量，用于保存最终的数据库
 path_database_dir = paste(path_base,'final_database',sep='/')
 # 建立功能函数所在目录变量，用于调用多个数据处理功能函数
