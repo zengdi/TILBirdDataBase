@@ -414,7 +414,9 @@ Chinese,LatinWJ,English,Resident,Landbird
 三道眉草鹀,Emberiza cioides,Meadow Bunting,R,1
 三道眉草鵐,Emberiza cioides,Meadow Bunting,R,1
 三道眉草鹀/小鹀,Emberiza cioides,Meadow Bunting,R,1
+点胸鸦雀,Paradoxornis guttaticollis,Spot-breasted Parrotbill,R,1
 红喉鹀,Emberiza elegans,Yellow-throated Bunting,P,1
-白眉鸫,Turdus obscurus,Eyebrowed Thrush,W,1
+白眉鸫,Turdus obscurus,Eyebrowed Thrush,P,1
+丽星鹩鹛,Spelaeornis formosus,Spotted Wren-babbler,R,1
 黄嘴栗啄木鸟,Blythipicus pyrrhotis,Bay Woodpecker,R,1
 无,无,无,R,1
