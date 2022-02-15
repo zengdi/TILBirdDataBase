@@ -171,7 +171,7 @@ data_reconstruct = function(dataset, end_year) {
   # 1.2 数据核对和重构 ######
   # 月份核对
   not_match = !(substr(breed_dataframe$Day, 1, 4) == substr(breed_dataframe$Month, 1, 4))
-  not_match_table = breed_dataframe[not_match, ]
+  month_not_match_table = breed_dataframe[not_match, ]
   cond1 = length(not_match_table[, 1]) == 0
   # 检验维度校对表中每月数据行数之和与经月份和调查次数转换的表行数是否一致
   cond2 = sum(as.numeric(dim_check_new[, 2])) == dim(breed_dataframe)[1]
@@ -217,7 +217,7 @@ data_reconstruct = function(dataset, end_year) {
   
   return(
     list(
-      not_match_table = not_match_table,
+      month_not_match_table = month_not_match_table,
       dim_check_new = dim_check_new,
       sp_all = spp_all,
       transect_all = transect_all,
