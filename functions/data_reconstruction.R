@@ -171,6 +171,7 @@ data_reconstruct = function(dataset, end_year) {
   # 1.2 数据核对和重构 ######
   # 月份核对
   not_match = !(substr(breed_dataframe$Day, 1, 4) == substr(breed_dataframe$Month, 1, 4))
+  # 调查日期中的月份与调查月份信息不匹配的数据
   month_not_match_table = breed_dataframe[not_match, ]
   cond1 = length(month_not_match_table[, 1]) == 0
   # 检验维度校对表中每月数据行数之和与经月份和调查次数转换的表行数是否一致
@@ -294,7 +295,7 @@ tran_cov_create = function(final_bird_data) {
         survey_end = unique(data_tmp$T_end)
         duration = "need to check"
         
-        # 调查开始时间判断
+        # 原始调查开始和结束时间缺失的记录
         na_df = rbind(na_df,
                       data.frame(
                         island36.tran[tran],
@@ -304,7 +305,7 @@ tran_cov_create = function(final_bird_data) {
                         paste(!is.na(survey_start) &
                                 !is.na(survey_end), collapse = ",")
                       ))
-        # 调查结束时间判断
+        # 原始调查开始和结束时间为"无"的记录
         no_df = rbind(no_df,
                       data.frame(
                         island36.tran[tran],
