@@ -9,9 +9,7 @@ require("openxlsx","stringr")
 
 运行前请执行如下代码，检查软件包完整性:
 require("openxlsx","stringr")
-=======
->>>>>>> 0256e357beb4225845453937e80ecc830eb00cb7
->>>>>>> 322d21db8711a4605c2ebff986eecf58e0fd653e
+
 
 
 1. 目录结构（列举主要目录及文档目的）
