@@ -526,6 +526,7 @@ abundance_month = function(large_bird_data_table,
   # 去除不在TILBirdList_unique中的物种名，character(0)也可以执行，不影响结果
   SppIsl36.df = TILBirdList_unique[match(SppIsl36, TILBirdList_unique$LatinWJ), ]
   # 基于TILBirdList_unique名录从中选择林鸟作为最终的名录
+  # 注：在最终数据库生成时，直接保留的就是林鸟 #####
   land.bird = subset(SppIsl36.df, Landbird == 1)
   # 获得每月每条样线调查到的林鸟物种多度数据集（样线水平数据集）
   birdset_month_land_tran = y[as.character(land.bird$LatinWJ), , , ]
@@ -545,7 +546,7 @@ abundance_month = function(large_bird_data_table,
   tran_mult_num = c(table(substr(
     dimnames(birdset_month_land_tran)[[2]][1:24], 1, 2
   )))
-  # 数据备份
+  # 样线水平的数据备份，以便进行岛屿水平数据的生成
   birdset_month_land_temp = birdset_month_land_tran
   # 第二个下标代表样线名称，令下标2为1，可以获得B1-1上每个物种调查是否调查到
   # 即：birdset_month_land_temp[,1,,]
