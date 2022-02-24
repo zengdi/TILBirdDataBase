@@ -113,6 +113,12 @@ large_bird_data_table = data_re$final_bird_data
 
 # 获得每次调查的协变量表
 tran_cov_table = tran_cov_create(large_bird_data_table)
+
+# 核对跨月数据是否正确归到对应月下
+month_conflict = tran_cov_table[tran_cov_table$month != substr(tran_cov_table$date,1,6),]
+write.xlsx(month_conflict,paste(path_check_table_dir,"covar_month_conflict.xlsx",sep="/"))
+
+# 保存协变量
 write.xlsx(tran_cov_table,paste(path_database_dir,"transect_covariate.xlsx",sep="/"))
 
 # 提供生成最终鸟类数据库所需要的物种、样线和调查次数信息
@@ -167,4 +173,7 @@ if(flag == "Y"){
 # 获得数据库中36个岛屿上所调查到的物种的中文名
 dim(SppIslMonthData.PA)
 TILBirdList_unique$Chinese[match(rownames(SppTranMonthData),TILBirdList_unique$LatinWJ)]
+
+SppTranMonthData[,"I3","202105","1"]
+
 
