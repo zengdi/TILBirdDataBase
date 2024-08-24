@@ -2,20 +2,16 @@
 
 本文档的编码为UTF-8，所有代码的编写和测试基于Ubuntu 20.04LTS (X86_64)平台的Rstudio（ver 2021.09.1）和R语言（ver-4.1.2）完成。
 
+代码最后一次校对于202408xx完成，基于Ubuntu 22.04.4 LTS (x86_64)平台的Rstudio（ver 2024.04.2）和R语言（ver-4.4.0）完成版本完成。
 
 运行前请执行如下代码，检查软件包完整性:
 require("openxlsx","stringr")
-
-
-运行前请执行如下代码，检查软件包完整性:
-require("openxlsx","stringr")
-
 
 1. 目录结构（列举主要目录及文档目的）
 
 TILBirdDataBase/ (代码根目录)
 
-  |-- yyyymmddraw_data/ (所有原始数据的xlsx文件)
+  |-- raw_data/yyyymmdd (所有原始数据的xlsx文件)
   |   |-- 200704-200801.xlsx
   |   |-- 200804-200901.xlsx
   |   |-- 200904-201001.xlsx
@@ -43,6 +39,10 @@ TILBirdDataBase/ (代码根目录)
   
   |-- final_database/ (最终数据库目录)
   |   |-- TILbird_land_Month.Rdata (最终的数据库)
+  |   |   |-- SppIslMonthData (岛屿水平调查月份尺度多度数据)
+  |   |   |-- SppIslMonthData.PA (岛屿水平调查月份尺度0/1数据)
+  |   |   |-- SppTranMonthData (样线水平调查月份尺度多度数据)
+  |   |   |-- SppTranMonthData.PA (样线水平调查月份尺度0/1数据)
   |   |-- transect_covariate.xlsx (每次调查协变量表，包括岛屿名、样线名、调查月份、重复次序、天气、开始结束时间、持续时间、主要调查人)
   
   |-- functions/ (功能函数目录)
@@ -71,7 +71,7 @@ TILBirdDataBase/ (代码根目录)
 2. 原始数据表的命名规则及存放位置
 (1)每个xlsx文件的命名规则为yyyy04-(yyyy+1)01，例如：202004-202101.xlsx
 (2)每个xlsx文件包含1-6个sheets,为当年所有繁殖季和冬季的调查数据，例如：202004，202005，202006，202011，202012，202101。上述sheet可以不全，但是命名规则必须为yyyymm
-(3)所有的原始数据都放置在yyyymmddraw_data 目录中
+(3)所有的原始数据都放置在raw_data/yyyymmdd 目录中
 
 3. 使用说明：
 （1）当所有的原始数据准备好后，只需要执行CombinedTILData.R中所有代码即可完成所有的数据合并。
@@ -86,7 +86,7 @@ TILBirdDataBase/ (代码根目录)
 (3) trans_req.txt 需要岛屿上对应的样线名称
 以上三者的内容要一一对应，(1)和(2)中的岛屿数量及名称要一致
 
-5. 注意：最终数据库中只保留了林鸟物种，其它生活型鸟未包括其中
+5. 最终数据库中只保留了林鸟物种，其它生活型鸟未包括其中
 
 6. 注意！！！！：
 请对所有的原始数据进行备份后再执行该代码
