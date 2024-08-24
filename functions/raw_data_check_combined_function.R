@@ -1,6 +1,7 @@
 # 功能函数必须包
 library(stringr)
 require(openxlsx)
+library(tidyverse)
 
 # 判断excel文件名错误 #####
 # 被本文件中combined_all_data函数所调用
@@ -55,12 +56,6 @@ main_surveyor_unify = function(X){
       surveyors_main = unlist(strsplit(X[i,]$`调查人(主要)`,"、"))
       if(length(surveyors_main) >= 2){
         X[i,]$`调查人(主要)` = surveyors_main[1]
-        if(X[i,]$`调查人(其他)`=="无"){
-          X[i,]$`调查人(其他)` = paste(surveyors_main[2])
-        }else{
-          X[i,]$`调查人(其他)` = paste(surveyors_main[2],X[i,]$`调查人(其他)`,
-                              sep="、")
-        }
       }
     }
   }
@@ -73,17 +68,33 @@ main_surveyor_unify = function(X){
 # 被combined_all_data函数调用
 # excel_path代表每个xlsx文件的绝对路径
 read_data_in_allsheets = function(excel_path) {
-  # excel_path = list.files("~/R/TILbird_database/bird_data_combined/20220207raw_data",
+  # 测试代码
+  # excel_path = list.files("./raw_data/20240824",
   #                         full.names = T)[1]
   # 获得所有sheet的名称
   sheet_names = openxlsx::getSheetNames(excel_path)
   # 统一后所有数据表的列名
+  # 从2023年起添加了录入人列，故在此对数据列进行修改添加
   col_names = c("样线","调查日期","调查起始时间","调查结束时间",
                 "天气","调查次数","种类","数量","记录数量类型",
                 "距离","活动类型","小生境","调查人(主要)",
-                "调查人(其他)","备注")
+                "调查人(其他)","备注","录入人")
   # 获得所有数据并集合形成list对象
-  list_survey_data = lapply(sheet_names, function(X) openxlsx::read.xlsx(excel_path, sheet = X))
+  # 为2023年之前的数据添加录入人列，并赋值为NA
+  list_survey_data = lapply(sheet_names, function(X){
+    # 读取每个excel表的每个sheet
+    # excel_path = '/home/zengdi/R/TILbird_database/TILBirdDataBase/raw_data/20240824/201504-201601.xlsx'
+    excel_tmp = openxlsx::read.xlsx(excel_path, sheet = X)
+    # 如果没有录入人列，则添加该列并赋值为NA
+    if(!("录入人" %in% colnames(excel_tmp))){
+      n_num = nrow(excel_tmp)
+      excel_tmp = excel_tmp %>% 
+        mutate(录入人 = as.character(rep(NA,n_num)),
+               备注 = as.character(备注))
+    }
+    return(excel_tmp)
+  }
+  )
   # 统一所有数据表的列名
   list_survey_data = lapply(list_survey_data, setNames, col_names)
   list_survey_data = lapply(list_survey_data,function(X) X[,col_names])
@@ -107,7 +118,7 @@ read_data_in_allsheets = function(excel_path) {
 # 被主代码直接调用
 # excel_dir:调查原始excel所在目录的绝对路径
 combined_all_data = function(excel_dir){
-  # excel_dir = "~/R/TILbird_database/bird_data_combined/20220205raw_data"
+  # excel_dir = "./raw_data/20240824"
   # 检测excel所在目录路径是否存在
   if (! file.exists(excel_dir)){
     stop("excel_dir目录不存在，请检查！")
@@ -139,11 +150,12 @@ combined_all_data = function(excel_dir){
   # 对所有调查月份按年份命名
   names(monthName) = yearNames
   total_data_table = data.frame()
+  
   # 数据表合并
   for (i in 1:length(excels_path)) {
     mysheets.temp = read_data_in_allsheets(excels_path[i])
-    for(i in mysheets.temp){
-      total_data_table = rbind(total_data_table,i)
+    for(j in mysheets.temp){
+      total_data_table = rbind(total_data_table,j)
     }
     alldata = c(alldata,mysheets.temp)
   }
