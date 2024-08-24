@@ -25,7 +25,7 @@ remove(list=ls())
 # 获得工程所在目录
 path_base = getwd()
 # 建立原始文档所在目录变量，用于读取原始鸟调数据
-path_raw_excel_dir = paste(path_base,'20220224raw_data',sep='/')
+path_raw_excel_dir = paste(path_base,'raw_data/20240824',sep='/')
 # 建立最终数据库所在目录变量，用于保存最终的数据库
 path_database_dir = paste(path_base,'final_database',sep='/')
 # 建立功能函数所在目录变量，用于调用多个数据处理功能函数
@@ -44,7 +44,9 @@ TILBirdList_unique = read.delim(paste(path_base,'TILBirdinfo_unique.txt',sep='/'
                                 sep=',')
 
 # 加载文件名检查、sheet名检查和数据合并函数文件
-source(paste(path_function_dir,'raw_data_check_combined_function.R',sep='/'))
+source(paste(path_function_dir,
+             'raw_data_check_combined_function.R',
+             sep='/'))
 
 # 整合所有的调查数据表，返回整合后的数据表以及调查年月组成的列表
 # 整合数据名为mysheets,调查年月日列表名为monthName
@@ -97,7 +99,7 @@ source(paste(path_function_dir,'data_reconstruction.R',sep='/'))
 # 最终数据生成
 # 起始年份
 # 数据截止年份，按次年1月当年最后一次调查
-end_year = 2021
+end_year =2024
 # 进行数据表重构
 data_re = data_reconstruct(mysheets,end_year)
 # data_re中的核对表及最终合并和过滤后的鸟类群落数据总表输入到硬盘
