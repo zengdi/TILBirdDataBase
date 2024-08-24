@@ -1,7 +1,7 @@
 # 建立数据检查基本矩阵
 # monthName调查月份的向量，num_col代表除了monthName外的列数
 create_check_matrix = function(monthName,num_col){
-  matrix_pre = matrix(,nrow = length(monthName),ncol = num_col+1)
+  matrix_pre = matrix(NA,nrow = length(monthName),ncol = num_col+1)
   rownames(matrix_pre) = monthName
   matrix_pre[,1] = monthName
   return(matrix_pre)
@@ -91,7 +91,7 @@ data_check = function(monthName,mysheets){
   # 遍历所有调查月份
   for(i in 1:length(monthName)){
     # 1. 测试代码,需要注释后运行 #####
-    # i = 28
+    # i = 23
     # 获得年
     yy = names(monthName[i])
     # 获得月
@@ -138,41 +138,58 @@ data_check = function(monthName,mysheets){
     survey_order = unique(data_month$调查次数)
     # 遍历每次调查的数据
     for(order in survey_order){
+      # order = 1
       # 获得每次调查的数据
       data_tmp = data_month[data_month$调查次数==order,]
       # 获得每次调查中的样线名
       transect_names = unique(data_tmp$样线)
       # 遍历每条样线
       for(tra in transect_names){
-        # 获得起始时间，并转化为时间对象
-        time_start = names(table(data_tmp[data_tmp$样线 == tra,]$调查起始时间))
-        if(is.null(time_start)){
-          time_start = "无"
-        }
-        time_start_num = strptime(time_start,format = "%H%M")
-        # 获得终止时间，并转化为时间对象
-        time_end = names(table(data_tmp[data_tmp$样线 == tra,]$调查结束时间))
-        if(is.null(time_end)){
-          time_end = "无"
-        }
-        time_end_num = strptime(time_end,format = "%H%M")
         # 定义持续时间
         duration = "NA"
         # 定义检查状态
         check = "check"
         
+        # 测试代码####
+        # tra = "S100"
+        # 获得起始时间，并转化为时间对象
+        time_start = names(table(data_tmp[data_tmp$样线 == tra,]$调查起始时间))
+        # print(data_tmp[data_tmp$样线 == tra,])
+        if(is.null(time_start)){
+          time_start = "无"
+        }else if(length(time_start)>1){
+          time_start = paste(time_start,collapse=',')
+        }
+        
+        # 获得终止时间，并转化为时间对象
+        time_end = names(table(data_tmp[data_tmp$样线 == tra,]$调查结束时间))
+        if(is.null(time_end)){
+          time_end = "无"
+        }else if(length(time_end)>1){
+          time_end = paste(time_end,collapse=',')
+        }
+        
+        
         # 如果起始和终止时间都不是无
-        if(!is.na(time_start) & !is.na(time_end)){
+        print(paste("mm",mm))
+        print(paste("i",i))
+        print(paste("order",order))
+        print(paste("tran",tra))
+        print(paste('start',paste(time_start,collapse=',')))
+        print(paste('end',time_end))
+        # 只有当起始时间和终止时间皆不为无时，才可以计算调查持续时间
+        # TODO: 如何保证这里的计算start和end只有一个值，其它的情况都是异常值需要check
+        if(grepl('^[0-2][0-9][0-5][0-9]$',time_start) & grepl('^[0-2][0-9][0-5][0-9]$',time_end)){
+          time_start_num = strptime(time_start,format = "%H%M")
+          time_end_num = strptime(time_end,format = "%H%M")
           # 数字化时间并计算差值
           duration = as.numeric(difftime(time_end_num,
                                          time_start_num,
                                          units = "min"))
         }
-        # 如果duration不是NA且大于0，则设status为ok
+        # 如果duration不是NA且大于2，则设status为ok
         if(!is.na(duration) & duration >= 2){
           check = "ok"
-          # 跳过无需核对
-          # next
         }
         # 更新time_duration_check_table内容
         add_record = c(month = mm,
@@ -202,7 +219,7 @@ data_check = function(monthName,mysheets){
     #按样线遍历数据
     for (j in 1:length(tran_info)) {
       # 2.测试代码，运行时注释#####
-      #j = 1
+      # j = 1
       # 从总数据集中取得指定月份指定样线的调查次数
       tran_name = names(tran_info)[j]
       rep_tran = table(subset(mysheets[[yy]][[mm]],样线==tran_name)[,6])
