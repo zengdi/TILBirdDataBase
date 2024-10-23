@@ -65,7 +65,7 @@ data_check = function(monthName,mysheets){
   rep_check_table =  create_check_matrix(monthName,9)
   
   # 创建调查人核对表：surveyor_check_table
-  surveyor_check_table = create_check_matrix(monthName,9)
+  surveyor_check_table = create_check_matrix(monthName,15)
   
   # 创建样线及重复次数核对表
   tran_data_check_table = create_check_matrix(monthName,70)
@@ -77,8 +77,11 @@ data_check = function(monthName,mysheets){
   
   # 鸟类物种名核对
   # 物种名核对表：spp_check_table
+  # 该表格是所有有问题的物种记录名，会有重复，因为不同的记录者
+  # 会记录到相同有问题的物种名
   spp_check_table = data.frame()
   # 千岛湖鸟类调查中记录到的任何鸟名向量（包含错记、无法识别的鸟名）
+  # 几乎没有重复
   spp_all = c()
   
   
@@ -171,14 +174,13 @@ data_check = function(monthName,mysheets){
         
         
         # 如果起始和终止时间都不是无
-        print(paste("mm",mm))
-        print(paste("i",i))
-        print(paste("order",order))
-        print(paste("tran",tra))
-        print(paste('start',paste(time_start,collapse=',')))
-        print(paste('end',time_end))
+        # print(paste("mm",mm))
+        # print(paste("i",i))
+        # print(paste("order",order))
+        # print(paste("tran",tra))
+        # print(paste('start',paste(time_start,collapse=',')))
+        # print(paste('end',time_end))
         # 只有当起始时间和终止时间皆不为无时，才可以计算调查持续时间
-        # TODO: 如何保证这里的计算start和end只有一个值，其它的情况都是异常值需要check
         if(grepl('^[0-2][0-9][0-5][0-9]$',time_start) & grepl('^[0-2][0-9][0-5][0-9]$',time_end)){
           time_start_num = strptime(time_start,format = "%H%M")
           time_end_num = strptime(time_end,format = "%H%M")
@@ -186,11 +188,12 @@ data_check = function(monthName,mysheets){
           duration = as.numeric(difftime(time_end_num,
                                          time_start_num,
                                          units = "min"))
+          # 如果duration大于2，则设status为ok
+          if(duration >=2){
+            check = "ok"
+          }
         }
-        # 如果duration不是NA且大于2，则设status为ok
-        if(!is.na(duration) & duration >= 2){
-          check = "ok"
-        }
+    
         # 更新time_duration_check_table内容
         add_record = c(month = mm,
                        transect = tra,
@@ -272,12 +275,16 @@ data_check = function(monthName,mysheets){
     spp_recheck_temp = data_temp[!sapply(data_temp$种类,spp_check),]
     spp_check_table = rbind(spp_check_table,spp_recheck_temp)
     
-    # 至少1个主要要调查人核对 #######
+    # 主要要调查人核对 #######
     # 统计当月的调查人
+    # print(paste("yy",yy))
+    # print(paste("mm",mm))
+    # mm = "202311"
+    # yy = "2023"
     surveyor_table = table(mysheets[[yy]][[mm]][,13])
     # 赋值给调查人核对表
     surveyor_check_table[mm,seq(2,length(surveyor_table)+1)] = names(surveyor_table)
-    
+
     # 每列空行核对 ####
     # 若为核对表中值为ok代表核对通过，正数代表数据缺，负数代表数据比month列多
     # 核对思路：获得原始数据的行数，如果后每一列的行数与原始数据中月份的数量一致
