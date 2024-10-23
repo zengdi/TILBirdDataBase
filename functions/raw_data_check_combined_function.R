@@ -83,7 +83,8 @@ read_data_in_allsheets = function(excel_path) {
   # 为2023年之前的数据添加录入人列，并赋值为NA
   list_survey_data = lapply(sheet_names, function(X){
     # 读取每个excel表的每个sheet
-    # excel_path = '/home/zengdi/R/TILbird_database/TILBirdDataBase/raw_data/20240824/201504-201601.xlsx'
+    # excel_path = '/home/zengdi/R/TILbird_database/TILBirdDataBase/raw_data/20240906/201704-201801.xlsx'
+    # print(X)
     excel_tmp = openxlsx::read.xlsx(excel_path, sheet = X)
     # 如果没有录入人列，则添加该列并赋值为NA
     if(!("录入人" %in% colnames(excel_tmp))){
@@ -118,7 +119,7 @@ read_data_in_allsheets = function(excel_path) {
 # 被主代码直接调用
 # excel_dir:调查原始excel所在目录的绝对路径
 combined_all_data = function(excel_dir){
-  # excel_dir = "./raw_data/20240824"
+  # excel_dir = "./raw_data/20240906"
   # 检测excel所在目录路径是否存在
   if (! file.exists(excel_dir)){
     stop("excel_dir目录不存在，请检查！")
@@ -153,6 +154,7 @@ combined_all_data = function(excel_dir){
   
   # 数据表合并
   for (i in 1:length(excels_path)) {
+    # print(excels_path[i])
     mysheets.temp = read_data_in_allsheets(excels_path[i])
     for(j in mysheets.temp){
       total_data_table = rbind(total_data_table,j)
