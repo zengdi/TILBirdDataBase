@@ -24,8 +24,11 @@ system("rm ./check_tables/*")
 remove(list=ls())
 # 获得工程所在目录
 path_base = getwd()
+# 设定原始记录所在日期目录(请确认是否是最新的原始数据！) #####
+date_dir = "20241010"
+message(paste("请确认原始数据所在日期目录：",date_dir))
 # 建立原始文档所在目录变量，用于读取原始鸟调数据
-path_raw_excel_dir = paste(path_base,'raw_data/20240824',sep='/')
+path_raw_excel_dir = paste(path_base,'raw_data',date_dir,sep='/')
 # 建立最终数据库所在目录变量，用于保存最终的数据库
 path_database_dir = paste(path_base,'final_database',sep='/')
 # 建立功能函数所在目录变量，用于调用多个数据处理功能函数
