@@ -192,8 +192,6 @@ data_reconstruct = function(dataset, end_year) {
           'raw_final_dataframe.xlsx', sep = '/')
   )
   
-  # 目前的bug，有些记录出现了物种为无，但是多度有数据的情况
-  # 如何解决：将相关的记录提取出来组成新的check表以便后续核对（已解决，去掉）
   # 物种与多度不匹配核对表record_sp_abun_check_table
   record_sp_abun_check_table = final_dataframe[final_dataframe$Species ==
                                                  "无" & !is.na(final_dataframe$Abun), ]
@@ -397,11 +395,10 @@ abundance_month = function(large_bird_data_table,
   #dim(bird_dataset)
 
   for (t in 1:length(monthName)) {
+    # 7.测试代码，运行中需要注释 ####
+    # t = 60
     # 按月份取数据，为了便于向bird_dataset中存放数据
     mm = monthName[t]
-    # 7.测试代码，运行中需要注释 ####
-    # mm = "201905"
-    # mm = '201001'
     # 取得指定月份的数据
     comm_month = subset(large_bird_data_table, Month == mm)
     # 将多度转化为数值
@@ -598,9 +595,9 @@ abundance_month = function(large_bird_data_table,
   write.xlsx(df_test_tran,rowNames=T,
              paste(path_check_table_dir,"final_tran_data_check.xlsx",sep="/"))
   
-  # 11.测试代码，对样线水平第四维进行测试提取#####
-  df_test_island = data.frame(isl="B1",month= "201012",rep="5",
-                              abun=birdset_month_land_island[,"B1","201012",5])
+  # 11.测试代码，对岛屿水平第四维进行测试提取#####
+  df_test_island = data.frame(isl="B1",month= "201011",rep="5",
+                              abun=birdset_month_land_island[,"B1","201011",5])
   rownames(df_test_island)= TILBirdList_unique$Chinese[match(rownames(df_test_island),
                                                            TILBirdList_unique$LatinWJ)]
   df_test_island = subset(df_test_island, abun>0)
