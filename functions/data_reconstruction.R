@@ -1,3 +1,8 @@
+# 功能函数必须包
+library(stringr)
+require(openxlsx)
+library(tidyverse)
+
 # 1. 进行数据重构的函数#####
 # 将原表中中文名转换为拉丁名，只保留原始的6列，即
 # 样线名、日期、时间、调查次数、物种、多度和调查月份

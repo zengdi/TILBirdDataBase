@@ -1,3 +1,8 @@
+# 功能函数必须包
+library(stringr)
+require(openxlsx)
+library(tidyverse)
+
 # 建立数据检查基本矩阵
 # monthName调查月份的向量，num_col代表除了monthName外的列数
 create_check_matrix = function(monthName,num_col){
