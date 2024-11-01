@@ -1,4 +1,4 @@
-Chinese,LatinWJ,English,Resident,Landbird
+﻿Chinese,LatinWJ,English,Resident,Landbird
 棕脸鹟莺,Abroscopus albogularis,Rufous-faced Warbler,R,1
 苍鹰,Accipiter gentilis,Northern Goshawk,W,1
 日本松雀鹰,Accipiter gularis,Japanese Sparrow Hawk,P,1
@@ -7,7 +7,7 @@ Chinese,LatinWJ,English,Resident,Landbird
 松雀鹰,Accipiter virgatus,Besra Sparrow Hawk,R,1
 八哥,Acridotheres cristatellus,Crested Myna,R,1
 东方大苇莺,Acrocephalus arundinaceus,Oriental Reed Warbler,S,1
-黑眉苇莺,Acrocephalus bistrigiceps,Black-browed Reed Warbler,S,1
+黑眉苇莺,Acrocephalus bistrigiceps,Black-browed Reed Warbler,P,1
 钝翅苇莺,Acrocephalus concinens,Blunt-winged Warbler,P,1
 矶鹬,Actitis hypoleucos,Common Sandpiper,W,0
 红头长尾山雀,Aegithalos concinnus,Black-throated Tit,R,1
@@ -53,10 +53,10 @@ Chinese,LatinWJ,English,Resident,Landbird
 斑鱼狗,Ceryle rudis,Lesser Pied Kingfisher,R,0
 远东树莺,Cettia canturians,Manchurian Bush-Warbler,S,1
 强脚树莺,Cettia fortipes,Brownish-flanked Bush Warbler,R,1
-金眶鸻,Charadrius dubius,Little Ringed Plover,W,0
+金眶鸻,Charadrius dubius,Little Ringed Plover,R,0
 长嘴剑鸻,Charadrius placidus,Long-billed Plover,W,0
 灰翅浮鸥,Chlidonias hybrida,Whiskered Tern,S,0
-白翅浮鸥,Chlidonias leucopterus,White-winged Tern,W,0
+白翅浮鸥,Chlidonias leucopterus,White-winged Tern,P,0
 橙腹叶鹎,Chloropsis hardwickii,Orange-bellied Leafbird,R,1
 褐河乌,Cinclus pallasii,Brown Dipper,R,0
 鹊鹞,Circus melanoleucos,Pied Harrier,W,1
@@ -74,7 +74,7 @@ Chinese,LatinWJ,English,Resident,Landbird
 普通鹰鹃,Cuculus varius,Large Hawk Cuckoo,S,1
 白腹蓝鹟,Cyanoptila cyanomelana,Blue-and-white Flycatcher,P,1
 灰树鹊,Dendrocitta formosae,Gray Treepie,R,1
-星头啄木鸟,Dendrocopos canicapillus,Grey-capped Woodpecker,R,1
+星头啄木鸟,Dendrocopos canicapillus,Grey-capped Woodpecker/Gray-capped Pygmy Woodpecker,R,1
 棕腹啄木鸟,Dendrocopos hyperythrus,Rufous-bellied woodpecker,P,1
 大斑啄木鸟,Dendrocopos major,Great Spotted Woodpecker,R,1
 山鹡鸰,Dendronanthus indicus,Forest Wagtail,S,1
@@ -86,7 +86,7 @@ Chinese,LatinWJ,English,Resident,Landbird
 黄胸鹀,Emberiza aureola,Yellow-breasted Bunting,P,1
 黄眉鹀,Emberiza chrysophrys,Yellow-browed Bunting,W,1
 三道眉草鹀,Emberiza cioides,Meadow Bunting,R,1
-黄喉鹀,Emberiza elegans,Yellow-throated Bunting,P,1
+黄喉鹀,Emberiza elegans,Yellow-throated Bunting,W,1
 栗耳鹀,Emberiza fucata,Chestnut-eared Bunting,W,1
 苇鹀,Emberiza pallasi,Pallas's Bunting,W,1
 小鹀,Emberiza pusilla,Little Bunting,W,1
@@ -150,9 +150,9 @@ Chinese,LatinWJ,English,Resident,Landbird
 红喉歌鸲,Luscinia calliope,Siberian Rubythroat,P,1
 蓝歌鸲,Luscinia cyane,Siberian Blue Robin,P,1
 红尾歌鸲,Luscinia sibilans,Rufous-tailed Robin,P,1
-蓝喉歌鸲,Luscinia svecica,Siberian Blue Robin,P,1
+蓝喉歌鸲,Luscinia svecica,Bluethroat,P,1
 冠鱼狗,Megaceryle lugubris,Crested Kingfisher,R,0
-大拟啄木鸟,Megalaima virens,Greater Barbet,R,1
+大拟啄木鸟,Megalaima virens,Great Barbet,R,1
 凤头鹀,Melophus lathami,Crested Bunting,R,1
 斑头秋沙鸭,Mergellus albellus,Smew,W,0
 普通秋沙鸭,Mergus merganser,Common Merganser,W,0
@@ -176,7 +176,7 @@ Chinese,LatinWJ,English,Resident,Landbird
 领角鸮,Otus lettia,Collared Scops Owl,R,3
 红角鸮,Otus sunia,Oriental Scops Owl,R,3
 鹗,Pandion haliaetus,Osprey,P,0
-灰头鸦雀,Paradoxornis gularis,Grey-headed Parrotbill,R,1
+灰头鸦雀,Paradoxornis gularis,Gray-headed Parrotbill,R,1
 棕头鸦雀,Paradoxornis webbianus,Vinous-throated Parrotbill,R,1
 大山雀,Parus major,Great Tit,R,1
 黄颊山雀,Parus spilonotus,Yellow-cheeked Tit,R,1
@@ -193,13 +193,14 @@ Chinese,LatinWJ,English,Resident,Landbird
 北红尾鸲,Phoenicurus auroreus,Daurian Redstart,W,1
 极北柳莺,Phylloscopus borealis,Arctic Warbler,P,1
 冕柳莺,Phylloscopus coronatus,Eastern crowned warbler,P,1
-褐柳莺,Phylloscopus fuscatus,Dusky Warbler,P,1
+褐柳莺,Phylloscopus fuscatus,Dusky Warbler,W,1
 华南冠纹柳莺,Phylloscopus goodsoni,Blyth's Leaf-Warbler,S,1
 黄眉柳莺,Phylloscopus inornatus,Yellow-browed Warbler,W,1
 黄腰柳莺,Phylloscopus proregulus,Pallas’s Leaf Warbler,W,1
 黑眉柳莺,Phylloscopus ricketti,Sulphur-breasted warbler,S,1
 巨嘴柳莺,Phylloscopus schwarzi,Radde's Warbler,P,1
 淡脚柳莺,Phylloscopus tenellipes,Pale-legged Leaf Warbler,P,1
+双斑绿柳莺,Phylloscopus trochiloides,Greenish warbler,P,1
 喜鹊,Pica pica,Common Magpie,R,1
 斑姬啄木鸟,Picumnus innominatus,Speckled Piculet,R,1
 灰头绿啄木鸟,Picus canus,Grey-headed Woodpecker,R,1
@@ -256,4 +257,15 @@ Chinese,LatinWJ,English,Resident,Landbird
 白眉鸫,Turdus obscurus,Eyebrowed Thrush,P,1
 丽星鹩鹛,Spelaeornis formosus,Spotted Wren-babbler,R,1
 黄嘴栗啄木鸟,Blythipicus pyrrhotis,Bay Woodpecker,R,1
+灰尾鹬,Heteroscelus brevipes,Grey-tailed Tattler,P,0
+林雕,Ictinaetus malayensis,Black Eagle,W,1
+白喉林鹟,Rhinomyias brunneatus,Brown-chested Jungle-flycatcher,S,1
+褐翅鸦鹃,Centropus sinensis,Greater coucal,R,1
+角百灵,Eremophila alpestris,Horned lark,P,1
+紫寿带,Terpsiphone atrocaudata,Black Paradise-Flycatcher,P,1
+大白鹭,Casmerodius albus,Great egret,W,0
+凤头鹰,Accipiter trivirgatus,Crested goshawk,R,1
+长尾缝叶莺,Orthotomus sutorius,Common tailorbird,R,1
+豆雁,Anser fabalis,Bean Goose,W,0
+峨眉柳莺,Phylloscopus emeiensis,Emei Leaf Warbler,P,1
 无,无,无,R,1

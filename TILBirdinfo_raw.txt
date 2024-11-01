@@ -1,4 +1,4 @@
-Chinese,LatinWJ,English,Resident,Landbird
+Chinese,LatinWJ,English,resident,Landbird
 黑鸢,Milvus migrans,Black Kite,R,1
 黑耳鸢,Milvus migrans,Black Kite,R,1
 黒鸢,Milvus migrans,Black Kite,R,1
@@ -56,8 +56,8 @@ Chinese,LatinWJ,English,Resident,Landbird
 黄眉柳莺？,Phylloscopus inornatus,Yellow-browed Warbler,W,1
 黄梅柳莺,Phylloscopus inornatus,Yellow-browed Warbler,W,1
 黄眉,Phylloscopus inornatus,Yellow-browed Warbler,W,1
-黄喉鹀,Emberiza elegans,Yellow-throated Bunting,P,1
-黄喉臀,Emberiza elegans,Yellow-throated Bunting,P,1
+黄喉鹀,Emberiza elegans,Yellow-throated Bunting,W,1
+黄喉臀,Emberiza elegans,Yellow-throated Bunting,W,1
 树麻雀,Passer montanus,Eurasian Tree Sparrow,R,1
 麻雀,Passer montanus,Eurasian Tree Sparrow,R,1
 鹪鹩,Troglodytes troglodytes,Winter wren,W,1
@@ -86,7 +86,7 @@ Chinese,LatinWJ,English,Resident,Landbird
 金腰燕,Hirundo daurica,Red-rumped Swallow,S,2
 金翅雀,Carduelis sinica,Oriental Greenfinch,R,1
 金翅,Carduelis sinica,Oriental Greenfinch,R,1
-金眶鸻,Charadrius dubius,Little Ringed Plover,W,0
+金眶鸻,Charadrius dubius,Little Ringed Plover,R,0
 远东树莺,Cettia canturians,Manchurian Bush-Warbler,S,1
 赤麻鸭,Tadorna ferruginea,Ruddy Shelduck,W,0
 赤颈鸭,Anas penelope,Wigeon,W,0
@@ -96,8 +96,8 @@ Chinese,LatinWJ,English,Resident,Landbird
 角䴙䴘,Podiceps auritus,Horned Grebe,W,0
 褐顶雀鹛,Alcippe brunnea,Dusky Fulvetta,R,1
 褐河乌,Cinclus pallasii,Brown Dipper,R,0
-褐柳莺,Phylloscopus fuscatus,Dusky Warbler,P,1
-褐柳莺？,Phylloscopus fuscatus,Dusky Warbler,P,1
+褐柳莺,Phylloscopus fuscatus,Dusky Warbler,W,1
+褐柳莺？,Phylloscopus fuscatus,Dusky Warbler,W,1
 蛇雕,Spilornis cheela,Crested Serpent Eagle,R,1
 蚁鴷,Jynx torquilla,Eurasian Wryneck,W,1
 蚁䴕,Jynx torquilla,Eurasian Wryneck,W,1
@@ -183,7 +183,7 @@ Chinese,LatinWJ,English,Resident,Landbird
 白腰文鸟,Lonchura striata,White-rumped Munia,R,1
 白胸苦恶鸟,Amaurornis phoenicurus,White-breasted Waterhen,S,0
 白胸翡翠,Halcyon smyrnensis,White-throated Kingfisher,R,0
-白翅浮鸥,Chlidonias leucopterus,White-winged Tern,W,0
+白翅浮鸥,Chlidonias leucopterus,White-winged Tern,P,0
 白眶鹟莺,Seicercus affinis,White-spectacled warbler,S,1
 白眉鹀,Emberiza tristrami,Tristram's Bunting,W,1
 白眉鵐,Emberiza tristrami,Tristram's Bunting,W,1
@@ -237,7 +237,7 @@ Chinese,LatinWJ,English,Resident,Landbird
 灰头鹀？,Emberiza spodocephala,Black-faced Bunting,W,1
 灰喉鹀,Emberiza spodocephala,Black-faced Bunting,W,1
 灰头鵐,Emberiza spodocephala,Black-faced Bunting,W,1
-灰头鸦雀,Paradoxornis gularis,Grey-headed Parrotbill,R,1
+灰头鸦雀,Paradoxornis gularis,Gray-headed Parrotbill,R,1
 灰头绿啄木鸟,Picus canus,Grey-headed Woodpecker,R,1
 灰头绿啄木鸟？,Picus canus,Grey-headed Woodpecker,R,1
 灰喉山椒鸟,Pericrocotus solaris,Grey-chinned Winivet,R,1
@@ -313,7 +313,7 @@ Chinese,LatinWJ,English,Resident,Landbird
 普通夜莺,Caprimulgus indicus,Indian Jungle Nightjar,S,3
 夜鹰,Caprimulgus indicus,Indian Jungle Nightjar,S,3
 夜莺,Caprimulgus indicus,Indian Jungle Nightjar,S,3
-星头啄木鸟,Dendrocopos canicapillus,Grey-capped Woodpecker,R,1
+星头啄木鸟,Dendrocopos canicapillus,Grey-capped Woodpecker/Gray-capped Pygmy Woodpecker,R,1
 日本松雀鹰,Accipiter gularis,Japanese Sparrow Hawk,P,1
 斑鸫,Turdus naumanni,Naumann's Thrush,W,1
 班鸫,Turdus naumanni,Naumann's Thrush,W,1
@@ -374,7 +374,7 @@ Chinese,LatinWJ,English,Resident,Landbird
 杜鹃（三声）,Cuculus canorus,Eurasian Cuckoo,S,1
 杜鹃？,Cuculus canorus,Eurasian Cuckoo,S,1
 大斑啄木鸟,Dendrocopos major,Great Spotted Woodpecker,R,1
-大拟啄木鸟,Megalaima virens,Greater Barbet,R,1
+大拟啄木鸟,Megalaima virens,Great Barbet,R,1
 大山雀,Parus major,Great Tit,R,1
 远东山雀,Parus major,Great Tit,R,1
 大嘴乌鸦,Corvus macrorhynchos,Large-billed Crow,R,1
@@ -383,6 +383,7 @@ Chinese,LatinWJ,English,Resident,Landbird
 噪鹃,Eudynamys scolopaceus,Common Koel,S,1
 喜鹊,Pica pica,Common Magpie,R,1
 发冠卷尾,Dicrurus hottentottus,Hair-crested Drongo,S,1
+双斑绿柳莺,Phylloscopus trochiloides,Greenish warbler,P,1
 叉尾太阳鸟,Aethopyga christinae,Fork-tailed sunbird,R,1
 斑胸钩嘴鹛,Pomatorhinus gravivox,Grey-sided Scimitar Babbler,R,1
 华南斑胸钩嘴鹛,Pomatorhinus gravivox,Grey-sided Scimitar Babbler,R,1
@@ -415,8 +416,105 @@ Chinese,LatinWJ,English,Resident,Landbird
 三道眉草鵐,Emberiza cioides,Meadow Bunting,R,1
 三道眉草鹀/小鹀,Emberiza cioides,Meadow Bunting,R,1
 点胸鸦雀,Paradoxornis guttaticollis,Spot-breasted Parrotbill,R,1
-红喉鹀,Emberiza elegans,Yellow-throated Bunting,P,1
+红喉鹀,Emberiza elegans,Yellow-throated Bunting,W,1
 白眉鸫,Turdus obscurus,Eyebrowed Thrush,P,1
 丽星鹩鹛,Spelaeornis formosus,Spotted Wren-babbler,R,1
 黄嘴栗啄木鸟,Blythipicus pyrrhotis,Bay Woodpecker,R,1
+灰尾鹬？,Heteroscelus brevipes,Grey-tailed Tattler,P,0
+黄腰山雀,Parus venustulus,Yellow-bellied Tit,R,1
+林雕？,Ictinaetus malayensis,Black Eagle,W,1
+灰山椒鸟？,Pericrocotus divaricatus,Ashy Minivet,P,1
+白喉林鹟,Rhinomyias brunneatus,Brown-chested Jungle-flycatcher,S,1
+白鹇？,Lophura nycthemera,Silver Pheasant,R,1
+褐翅鸦鹃,Centropus sinensis,Greater coucal,R,1
+画眉（不确定）,Garrulax canorus,Hwamei,R,1
+叉尾太阳鸟（不确定）,Aethopyga christinae,Fork-tailed sunbird,R,1
+白额燕尾？,Enicurus leschenaulti,White-crowned Forktail,R,1
+白眉鹀？,Emberiza tristrami,Tristram's Bunting,W,1
+白腹蓝鹟,Cyanoptila cyanomelana,Blue-and-white Flycatcher,P,1
+角百灵？,Eremophila alpestris,Horned lark,P,1
+紫寿带,Terpsiphone atrocaudata,Black Paradise-Flycatcher,P,1
+大白鹭,Casmerodius albus,Great egret,W,0
+？大山雀,Parus major,Great Tit,R,1
+？褐柳莺,Phylloscopus fuscatus,Dusky Warbler,W,1
+凤头鹰,Accipiter trivirgatus,Crested goshawk,R,1
+普通海鸥,Larus canus,Mew Gull,W,0
+领鸺鹠,Glaucidium brodiei,Collared Owlet,R,3
+长尾缝叶莺？,Orthotomus sutorius,Common tailorbird,R,1
+华南冠纹柳莺,Phylloscopus goodsoni,Blyth's Leaf-Warbler,S,1
+豆雁,Anser fabalis,Bean Goose,W,0
+冠鱼狗？,Megaceryle lugubris,Crested Kingfisher,R,0
+黑鸢 ,Milvus migrans,Black Kite,R,1
+大山雀 ,Parus major,Great Tit,R,1
+暗绿绣眼鸟 ,Zosterops japonicus,Japanese White-eye,R,1
+暗绿绣眼鸟 ,Zosterops japonicus,Japanese White-eye,R,1
+黄眉柳莺 ,Phylloscopus inornatus,Yellow-browed Warbler,W,1
+黄臀鹎 ,Pycnonotus xanthorrhous,Brown-breasted Bulbul,R,1
+黄眉柳莺 ,Phylloscopus inornatus,Yellow-browed Warbler,W,1
+灰树鹊 ,Dendrocitta formosae,Gray Treepie,R,1
+黑鸢 ,Milvus migrans,Black Kite,R,1
+黑鸢 ,Milvus migrans,Black Kite,R,1
+黑鸢 ,Milvus migrans,Black Kite,R,1
+白头鹎 ,Pycnonotus sinensis,Light-vented Bulbul,R,1
+白头鹎 ,Pycnonotus sinensis,Light-vented Bulbul,R,1
+画眉 ,Garrulax canorus,Hwamei,R,1
+画眉 ,Garrulax canorus,Hwamei,R,1
+强脚树莺 ,Cettia fortipes,Brownish-flanked Bush Warbler,R,1
+山麻雀 ,Passer rutilans,Russet Sparrow,R,1
+暗灰鹃鵙 ,Coracina melaschistos,Black-winged Cuckooshrike,S,1
+黑耳鸢 ,Milvus migrans,Black Kite,R,1
+暗灰鹃鵙 ,Coracina melaschistos,Black-winged Cuckooshrike,S,1
+暗灰鹃鵙 ,Coracina melaschistos,Black-winged Cuckooshrike,S,1
+白头鹎 ,Pycnonotus sinensis,Light-vented Bulbul,R,1
+画眉 ,Garrulax canorus,Hwamei,R,1
+黑鸢 ,Milvus migrans,Black Kite,R,1
+黑鸢 ,Milvus migrans,Black Kite,R,1
+黑鸢 ,Milvus migrans,Black Kite,R,1
+白头鹎 ,Pycnonotus sinensis,Light-vented Bulbul,R,1
+大山雀 ,Parus major,Great Tit,R,1
+大山雀 ,Parus major,Great Tit,R,1
+大山雀 ,Parus major,Great Tit,R,1
+大山雀 ,Parus major,Great Tit,R,1
+大山雀 ,Parus major,Great Tit,R,1
+黑鹎 ,Hypsipetes leucocephalus,Balck Bulbul,S,1
+黑鹎 ,Hypsipetes leucocephalus,Balck Bulbul,S,1
+黑鹎 ,Hypsipetes leucocephalus,Balck Bulbul,S,1
+黑鹎 ,Hypsipetes leucocephalus,Balck Bulbul,S,1
+黑鹎 ,Hypsipetes leucocephalus,Balck Bulbul,S,1
+黑鹎 ,Hypsipetes leucocephalus,Balck Bulbul,S,1
+大山雀 ,Parus major,Great Tit,R,1
+大山雀 ,Parus major,Great Tit,R,1
+大山雀 ,Parus major,Great Tit,R,1
+大山雀 ,Parus major,Great Tit,R,1
+大山雀 ,Parus major,Great Tit,R,1
+大山雀 ,Parus major,Great Tit,R,1
+栗背短脚鹎 ,Hemixos castanonotus,Chestnut Bulbul,R,1
+黄臀鹎 ,Pycnonotus xanthorrhous,Brown-breasted Bulbul,R,1
+白头鹎 ,Pycnonotus sinensis,Light-vented Bulbul,R,1
+北红尾鸲 ,Phoenicurus auroreus,Daurian Redstart,W,1
+北红尾鸲 ,Phoenicurus auroreus,Daurian Redstart,W,1
+白头鹎 ,Pycnonotus sinensis,Light-vented Bulbul,R,1
+白头鹎 ,Pycnonotus sinensis,Light-vented Bulbul,R,1
+北红尾鸲 ,Phoenicurus auroreus,Daurian Redstart,W,1
+白头鹎 ,Pycnonotus sinensis,Light-vented Bulbul,R,1
+黑鸢 ,Milvus migrans,Black Kite,R,1
+黑鸢 ,Milvus migrans,Black Kite,R,1
+  小灰山椒鸟,Pericrocotus cantonensis,Swinhoe's Minivet,S,1
+红头长尾山雀 ,Aegithalos concinnus,Black-throated Tit,R,1
+山斑鸠 ,Streptopelia orientalis,Oriental Turtle Dove,R,1
+ 红头穗鹛,Stachyris ruficeps,Rufous-capped Babbler,R,1
+峨眉柳莺？,Phylloscopus emeiensis,Emei Leaf Warbler,P,1
+栗背短脚鹎 ,Hemixos castanonotus,Chestnut Bulbul,R,1
+白头鹎 ,Pycnonotus sinensis,Light-vented Bulbul,R,1
+ 栗背短脚鹎,Hemixos castanonotus,Chestnut Bulbul,R,1
+大山雀 ,Parus major,Great Tit,R,1
+林雕,Ictinaetus malayensis,Black Eagle,W,1
+林雕,Ictinaetus malayensis,Black Eagle,W,1
+灰眶雀鹛 ,Alcippe morrisonia,Grey-cheeked Fulvetta,R,1
+ 白头鹎,Pycnonotus sinensis,Light-vented Bulbul,R,1
+灰眶雀鹛 ,Alcippe morrisonia,Grey-cheeked Fulvetta,R,1
+海鸥,Larus canus,Mew Gull,W,0
+红胁蓝尾鸲 ,Tarsiger cyanurus,Orange-flanked Bush Robin,W,1
+ 棕脸鹟莺,Abroscopus albogularis,Rufous-faced Warbler,R,1
+ 棕脸鹟莺,Abroscopus albogularis,Rufous-faced Warbler,R,1
 无,无,无,R,1
