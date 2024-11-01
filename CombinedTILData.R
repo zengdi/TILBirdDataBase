@@ -21,35 +21,37 @@
 system("rm ./final_database/*")
 system("rm ./check_tables/*")
 # 清除所有原有的环境变量，保证所有的数据和代码都是最新读取的
-remove(list=ls())
+remove(list = ls())
 # 获得工程所在目录
 path_base = getwd()
 # 设定原始记录所在日期目录(请确认是否是最新的原始数据！) #####
 date_dir = "20241010"
-message(paste("请确认原始数据所在日期目录：",date_dir))
+message(paste("请确认原始数据所在日期目录：", date_dir))
 # 建立原始文档所在目录变量，用于读取原始鸟调数据
-path_raw_excel_dir = paste(path_base,'raw_data',date_dir,sep='/')
+path_raw_excel_dir = paste(path_base, 'raw_data', date_dir, sep = '/')
 # 建立最终数据库所在目录变量，用于保存最终的数据库
-path_database_dir = paste(path_base,'final_database',sep='/')
+path_database_dir = paste(path_base, 'final_database', sep = '/')
 # 建立功能函数所在目录变量，用于调用多个数据处理功能函数
-path_function_dir = paste(path_base,'functions',sep='/')
+path_function_dir = paste(path_base, 'functions', sep = '/')
 # 建立核对表存放目录变量，用于存放整合数据校验后需要再次核对的数据
-path_check_table_dir = paste(path_base,'check_tables',sep='/')
+path_check_table_dir = paste(path_base, 'check_tables', sep = '/')
 # 岛屿参数存放目录变量，用于存放岛屿参数以及需要获得数据的岛屿和样线名称
-path_island_tran_dir = paste(path_base,'island',sep='/')
+path_island_tran_dir = paste(path_base, 'island', sep = '/')
 
 # 导入物种名参考数据
 # 未去重的千岛湖鸟类名录（包括所有书写错误的物种名）
-TILBirdList_raw = read.delim(paste(path_base,'TILBirdinfo_raw.txt',sep='/'),
-                         sep=',')
+TILBirdList_raw = read.delim(paste(path_base, 'TILBirdinfo_raw.txt', sep =
+                                     '/'), sep = ',')
 # 去重后的千岛湖鸟类名录（只包括正确的中文名、拉丁名的物种，且没有任何重复）
-TILBirdList_unique = read.delim(paste(path_base,'TILBirdinfo_unique.txt',sep='/'),
-                                sep=',')
+TILBirdList_unique = read.delim(paste(path_base, 'TILBirdinfo_unique.txt', sep =
+                                        '/'), sep = ',')
 
 # 加载文件名检查、sheet名检查和数据合并函数文件
-source(paste(path_function_dir,
-             'raw_data_check_combined_function.R',
-             sep='/'))
+source(paste(
+  path_function_dir,
+  'raw_data_check_combined_function.R',
+  sep = '/'
+))
 
 # 整合所有的调查数据表，返回整合后的数据表以及调查年月组成的列表
 # 整合数据名为mysheets,调查年月日列表名为monthName
@@ -66,22 +68,22 @@ mysheets = combined_data[['mysheets']]
 # 所有调查的年份
 yearName = combined_data[['yearName']]
 
-# data exploring example 
+# data exploring example
 # 列出2015年所有数据
-head(mysheets[['2015']],n=1)
+head(mysheets[['2015']], n = 1)
 # 列出2015年6月数据前几行
 head(mysheets[['2015']][['201506']])
 
 # 各个数据行的校对#####
 # 加载数据核对函数文件
-source(paste(path_function_dir,'data_item_check.R',sep='/'))
+source(paste(path_function_dir, 'data_item_check.R', sep = '/'))
 # 调用数据核对函数，返回检查结果list
-check_list = data_check(monthName,mysheets)
+check_list = data_check(monthName, mysheets)
 # 写出所有核对结果列表，以便进行原始数据recheck
-for(i in 1:(length(names(check_list))-1)){
-  write.xlsx(as.data.frame(check_list[[i]]),paste(path_check_table_dir,
-                              paste(names(check_list)[i],'.xlsx',sep = ''),
-                              sep='/'))
+for (i in 1:(length(names(check_list)) - 1)) {
+  write.xlsx(as.data.frame(check_list[[i]]),
+             paste(path_check_table_dir, paste(names(check_list)[i], '.xlsx', sep = ''), sep =
+                     '/'))
 }
 
 
@@ -98,18 +100,19 @@ mysheets = check_list[['mysheets']]
 #test_tmp = subset(mysheets[['2007']][['200705']])
 
 # 加载数据重构函数和按月份多度数据集构建函数文件
-source(paste(path_function_dir,'data_reconstruction.R',sep='/'))
+source(paste(path_function_dir, 'data_reconstruction.R', sep = '/'))
 # 最终数据生成
 # 起始年份
 # 数据截止年份，按次年1月当年最后一次调查
-end_year =2024
+end_year = 2024
 # 进行数据表重构
-data_re = data_reconstruct(mysheets,end_year)
+data_re = data_reconstruct(mysheets, end_year)
 # data_re中的核对表及最终合并和过滤后的鸟类群落数据总表输入到硬盘
-for(i in names(data_re)){
-  write.xlsx(as.data.frame(data_re[[i]]),paste(path_check_table_dir,
-                                             paste(i,'.xlsx',sep = ''),
-                                             sep='/'))
+for (i in names(data_re)) {
+  if (nrow(as.data.frame(data_re[[i]])) != 0) {
+    write.xlsx(as.data.frame(data_re[[i]]),
+               paste(path_check_table_dir, paste(i, '.xlsx', sep = ''), sep = '/'))
+  }
 }
 
 # 进行数据库生成 #####
@@ -120,11 +123,13 @@ large_bird_data_table = data_re$final_bird_data
 tran_cov_table = tran_cov_create(large_bird_data_table)
 
 # 核对跨月数据是否正确归到对应月下
-month_conflict = tran_cov_table[tran_cov_table$month != substr(tran_cov_table$date,1,6),]
-write.xlsx(month_conflict,paste(path_check_table_dir,"covar_month_conflict.xlsx",sep="/"))
+month_conflict = tran_cov_table[tran_cov_table$month != substr(tran_cov_table$date, 1, 6), ]
+write.xlsx(month_conflict,
+           paste(path_check_table_dir, "covar_month_conflict.xlsx", sep = "/"))
 
 # 保存协变量
-write.xlsx(tran_cov_table,paste(path_database_dir,"transect_covariate.xlsx",sep="/"))
+write.xlsx(tran_cov_table,
+           paste(path_database_dir, "transect_covariate.xlsx", sep = "/"))
 
 # 提供生成最终鸟类数据库所需要的物种、样线和调查次数信息
 sp_all = data_re$sp_all
@@ -138,10 +143,12 @@ rep_seq = data_re$rep_seq
 # sp_all：调查中遇到的所有的鸟物种
 # 上述三种数据皆可由data_reconstruct获得
 # abundance_month函数执行完，要先完成message的核对再执行后续操作
-final_data = abundance_month(large_bird_data_table,tran_all,sp_all,rep_seq)
+final_data = abundance_month(large_bird_data_table, tran_all, sp_all, rep_seq)
 
+# abundance_month函数执行完会生成final_tran_data_check.xlsx和final_island_data_check.xlsx
+# 请对比这两个文件和total_raw_data_table.xlsx文件对应的数据
 flag = readline("请确认：final_tran_data_check.xlsx和final_island_data_check.xlsx与原始数据相同？Y/N \n")
-if(flag == "Y"){
+if (flag == "Y") {
   # 注：两个数据集中可能会出现如下情况：某条样线的某次调查中所有物种的多度为NA
   # 就放假情况表明，原始数据中该次调查有数据，但由于物种名不准确，导致数据被剔除
   # 按月份、样线名的多度数据集
@@ -167,18 +174,24 @@ if(flag == "Y"){
   
   # 将岛屿参数、按月和岛屿或者样线的0/1数据和多度数据存储到
   # 数据库TILbird_land_Month.Rdata
-  save(SppTranMonthData, 
-       SppIslMonthData, 
-       SppTranMonthData.PA, 
-       SppIslMonthData.PA, 
-       IslandData, 
-       file = paste(path_base,'final_database','TILbird_land_Month.Rdata',sep='/'))
+  save(
+    SppTranMonthData,
+    SppIslMonthData,
+    SppTranMonthData.PA,
+    SppIslMonthData.PA,
+    IslandData,
+    file = paste(
+      path_base,
+      'final_database',
+      'TILbird_land_Month.Rdata',
+      sep = '/'
+    )
+  )
 }
 
 # 获得数据库中36个岛屿上所调查到的物种的中文名
 dim(SppIslMonthData.PA)
-TILBirdList_unique$Chinese[match(rownames(SppTranMonthData),TILBirdList_unique$LatinWJ)]
+dimnames(SppIslMonthData.PA)
+TILBirdList_unique$Chinese[match(rownames(SppTranMonthData), TILBirdList_unique$LatinWJ)]
 
-SppTranMonthData[,"I3","202105","1"]
-
-
+SppTranMonthData[, "I3", "202105", "1"]
