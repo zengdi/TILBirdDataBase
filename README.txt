@@ -49,6 +49,7 @@ TILBirdDataBase/ (代码根目录)
   |   |-- data_item_check.R (原始数据核对功能函数，用于生成check_tables目录中的部分文件)
   |   |-- data_reconstruction.R (最终数据重构功能函数，用于生成最终数据库和协变量表，同时也生成check_tables目录中的部分文件)
   |   |-- raw_data_check_combined_function.R (原始调查数据合并功能函数，用于将所有原始数据的xlsx表格合并成一个大表)
+  |   |-- match_raw_data_final_data.R (校对原始数据与生成的矩阵数据表。思路：将矩阵数据表中的每个值取出，在原始表中找到对应的位取其物种多度进行比较)
   
   |-- island/ (岛屿参数及所需岛屿记录文件)
   |   |-- island_req.txt 需要提取数据的岛屿名称
