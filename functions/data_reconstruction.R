@@ -7,14 +7,14 @@ library(tidyverse)
 # 将原表中中文名转换为拉丁名，只保留原始的6列，即
 # 样线名、日期、时间、调查次数、物种、多度和调查月份
 # 重构
-# mysheets_new = list()
-data_reconstruct = function(dataset, end_year) {
+data_reconstruct = function(dataset, end_year,TILBirdList_raw) {
   # 1. 测试代码，正式代码中应注释掉 #####
   # dataset = mysheets
-  # end_year = 2021
+  # end_year = 2024
   
   # 维度校对表dim_check_new，原变量名：breed_dim_check
-  dim_check_new = data.frame(check_list[['dim_check']])[, 1:3]
+  dim_check_new = data.frame(check_list[['dim_check']]) %>% 
+    select(month,nrow,ncol)
   # 记录千岛湖调查中所有的非重复鸟类物种名
   spp_all = character()
   # 记录调查中所有的样线名
@@ -42,8 +42,8 @@ data_reconstruct = function(dataset, end_year) {
     mm = monthName[j]
     
     # 2.测试代码，正式代码中应注释掉  ####
-    # yy = "2010"
-    # mm="201006"
+    # yy = "2020"
+    # mm="202012"
 
     # 获得当月调查数据集
     data_month_temp = mysheets[[yy]][[mm]]
@@ -58,56 +58,42 @@ data_reconstruct = function(dataset, end_year) {
     #   如果这次调查有多条记录，但某些记录出现无或NA，则删除这条记录】
     
     # 考虑有些岛的有些调查并没有调查到物种
-    # 目前的bug是，没有调查到物种的数据会被去掉了，就会损失调查人、天气等信息（已解决）
+    # 潜在BUG:没有调查到物种的数据会被去掉了，就会损失调查人、天气等信息（已解决）
     # 以202111的I10为例，其第1次调查没有记录到物种信息，
-    # 就看final_dataframe中会不会出现该信息，以判断这段代码修改是否完善
-    
-    for (k in 1:nrow(data_month_temp)) {
-      # 获得每条数据
-      record_tmp = data_month_temp[k, ]
-      # 判断物种信息是否为"空"，若为空则修改为无令其进入
-      # record_sp_abun_check_table中，方便后续数据核对和补充
-      if (is.na(record_tmp$种类) | is.null(record_tmp$种类) | record_tmp$种类=="无") {
-        data_month_temp[k, ]$种类  = "无"
-      }
-    }
-    
-    # 获得当前调查月份下所有**原始记录中的物种名**,第7列为物种名
-    spp_name_month_raw = data.frame(data_month_temp[, 7])[, 1]
-    
-    # 将**原始数据的中文名**与包括所有物种名的鸟类信息名录TILBirdList_raw匹配
-    # 转换为对应的拉丁名,如果匹配不上，则用NA表示
-    spp_name_month = as.character(TILBirdList_raw$LatinWJ[match(spp_name_month_raw,
-                                                                   TILBirdList_raw$Chinese)])
-    #cbind(name.month,latin.name.month)
-    # 获得**原始数据中文名**与TILBirdList_raw中中文名匹配成功的物种名索引
-    # 以便提取有效物种的数据
-    spp_match_idx = spp_name_month_raw %in% TILBirdList_raw$Chinese
-    
-    # 基于当月调查数据集中的1,2,3,4,5,6,8,13列和千岛湖鸟类物种名录构建新的数据表
-    # 1，2，3，4列分别为样线名称、调查日期、调查起始时间、调查终止时间;
-    # 5为天气，6列为调查次数、8列为多度、13列为主要调查人;
-    data_month_new = data.frame(
-      data_month_temp[, c(1, 2, 3, 4)],
-      data_month_temp[, c(5, 6)],
-      spp_name_month,
-      data_month_temp[, 8],
-      data_month_temp[, 13]
-    )
-    data_month_new = as.data.frame(data_month_new, stringsAsFactors = F)
-    colnames(data_month_new) = c(
-      'Transect',
-      'Day',
-      'T_start',
-      'T_end',
-      'Weather',
-      'Rep',
-      'Species',
-      'Abun',
-      "Surveyor"
-    )
-    # 提取拉丁名匹配上的记录（有效物种数据）作为该月的最终数据
-    data_month_new = data_month_new[spp_match_idx, ]
+    # 就看raw_final_dataframe.xlsx中会不会出现该信息，以判断这段代码修改是否完善
+    # 若物种“无”存在则代码没有问题，否则要核对
+    # 判断物种信息是否为"空"，若为空则修改为"无"令其进入
+    # record_sp_abun_check_table中，方便后续数据核对和补充
+    data_month_temp = data_month_temp %>%
+      mutate(
+        种类 = case_when(
+          is.na(种类) | is.null(种类) | 种类 == "无" ~ "无",
+          TRUE ~ 种类
+        )
+      )
+
+    # 基于当月调查数据集中的样线、调查日期、调查起始时间、调查终止时间;
+    # 天气，调查次数、数量、调查人(主要)列和千岛湖鸟类物种名录构建新的数据表
+    # 并进行列名重命名
+    data_month_new = data_month_temp %>% 
+      # 按中文匹配添加拉丁名列
+      left_join(TILBirdList_raw %>% 
+                  select(Chinese,LatinWJ),
+                by = c("种类"="Chinese")) %>% 
+      # 将中文列名转换为英文列名并保留指定列
+      transmute(
+        Transect = 样线,
+        Day = 调查日期,
+        T_start = 调查起始时间,
+        T_end = 调查结束时间,
+        Weather = 天气,
+        Rep = 调查次数,
+        Species = LatinWJ,
+        Abun = 数量,
+        Surveyor = `调查人(主要)`
+      ) %>% 
+      # 过滤掉未匹配的物种名，形成本月最终的数据表
+      filter(!is.na(Species))
     
     # 提取201101及其之前每月前5次调查的数据；提取201104及其以后每月前3次调查的数据
     if (as.numeric(yy) <= 2010 || mm == "201101") {
@@ -135,12 +121,10 @@ data_reconstruct = function(dataset, end_year) {
     # 按调查次序排序
     data_month_new = data_month_new[with(data_month_new, order(Rep)), ]
     
-    #将每月的新建的数据表存入最终的新数据集mysheets_new中
-    # 该数据集可能不会被调用
-    # mysheets_new[[j]] = data_month_new
-    # 获得新生成数据表的维度数据存入新的维度核对表中
-    # 便于向数据中添加月份信息
-    dim_check_new[j, 2:3] = dim(data_month_new)
+    # 将过滤完成的月份调查数据表维度(记录数和变量数)数据存入维度核对表中
+    dim_check_new = dim_check_new %>% 
+      mutate(nrow = ifelse(month == mm,nrow(data_month_new),nrow),
+             ncol = ifelse(month == mm,ncol(data_month_new),ncol))
     
     # 所有调查到鸟类的物种名，原变量：breed.name.temp
     month_spp_temp = as.character(unique(data_month_new$Species))
@@ -254,7 +238,7 @@ trans_req = read.delim(
 # 2.每调查协变量表生成函数 ######
 tran_cov_create = function(final_bird_data) {
   # 3.测试代码，运行中需要注释####
-  #final_bird_data = large_bird_data_table
+  # final_bird_data = large_bird_data_table
   # 指定提取的样线编号
   island36.tran = trans_req[, 1]
   # 基于指定样线获得岛屿编号，其中sapply可以直接应用于vector无需指定行或列
@@ -264,8 +248,9 @@ tran_cov_create = function(final_bird_data) {
   # 返回的协变量表
   tran_cov_table = data.frame()
   
-  # 鸟类数据表中样线的最大重复次数
+  # 鸟类数据表中样线的重复次数
   reps = unique(final_bird_data$Rep)
+  
   # 鸟类数据表中调查月份
   months = unique(final_bird_data$Month)
   months_sel = months[months >= "200904"]
@@ -301,24 +286,24 @@ tran_cov_create = function(final_bird_data) {
         # 原始调查开始和结束时间缺失的记录
         na_df = rbind(na_df,
                       data.frame(
-                        island36.tran[tran],
-                        island,
-                        months_sel[month],
-                        reps[rep],
-                        paste(!is.na(survey_start) &
-                                !is.na(survey_end), collapse = ",")
-                      ))
+                        island = island,
+                        tran = island36.tran[tran],
+                        month = months_sel[month],
+                        rep = reps[rep],
+                        check = ifelse(is.na(survey_start)|is.na(survey_end),"yes","no")
+                      ) %>% 
+                        dplyr::filter(check == "yes"))
         # 原始调查开始和结束时间为"无"的记录
         no_df = rbind(no_df,
                       data.frame(
-                        island36.tran[tran],
-                        island,
-                        months_sel[month],
-                        reps[rep],
-                        paste(survey_start != "无" &
-                                survey_end != "无", collapse = ",")
-                      ))
-        
+                        island = island,
+                        tran = island36.tran[tran],
+                        month = months_sel[month],
+                        rep = reps[rep],
+                        check = ifelse(survey_start == "无" | survey_end == "无","yes","no")
+                      ) %>% 
+                        dplyr::filter(check == "yes"))
+
         # 计算协变量表中调查持续时间值
         if (!is.na(survey_start) & !is.na(survey_end)) {
           if (survey_start != "无" & survey_end != "无") {
@@ -329,6 +314,7 @@ tran_cov_create = function(final_bird_data) {
                                            units = "min"))
           }
         }
+
         # 协变量表中的记录生成
         cov_record = data.frame(
           island = island,
@@ -347,10 +333,16 @@ tran_cov_create = function(final_bird_data) {
       }
     }
   }
-  write.xlsx(na_df,
-             paste(path_check_table_dir, "survey_time_na_check.xlsx", sep = "/"))
-  write.xlsx(na_df,
-             paste(path_check_table_dir, "survey_time_no_check.xlsx", sep = "/"))
+  
+  if(nrow(na_df) > 0){
+    write.xlsx(na_df,
+               paste(path_check_table_dir, "survey_time_na_check.xlsx", sep = "/"))
+  }
+  if(nrow(no_df) > 0){
+    write.xlsx(no_df,
+               paste(path_check_table_dir, "survey_time_no_check.xlsx", sep = "/"))
+  }
+  
   return(tran_cov_table)
 }
 
@@ -474,7 +466,6 @@ abundance_month = function(large_bird_data_table,
       }
     }
   }
-  
   
   # 进行中间数据备份，方便在不修改原来数据基础上进行后续操作
   y2 = bird_dataset
