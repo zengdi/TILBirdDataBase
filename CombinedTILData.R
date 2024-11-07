@@ -41,7 +41,8 @@ path_island_tran_dir = paste(path_base, 'island', sep = '/')
 # 导入物种名参考数据
 # 未去重的千岛湖鸟类名录（包括所有书写错误的物种名）
 TILBirdList_raw = read.delim(paste(path_base, 'TILBirdinfo_raw.txt', sep =
-                                     '/'), sep = ',')
+                                     '/'), sep = ',') %>% 
+  distinct()
 # 去重后的千岛湖鸟类名录（只包括正确的中文名、拉丁名的物种，且没有任何重复）
 TILBirdList_unique = read.delim(paste(path_base, 'TILBirdinfo_unique.txt', sep =
                                         '/'), sep = ',')
@@ -61,12 +62,15 @@ source(paste(
 # 例2，mysheets[['2015']][['201501']]调取2015年1月调查数据
 combined_data = combined_all_data(path_raw_excel_dir)
 
+# 原始excel表直接合并生成的大table表
+all_raw_data_table = combined_data[["raw_total_data_table"]]
 # 调查年月组成的列表，以年份命名
 monthName = combined_data[['monthName']]
 # 合并后的所有鸟类调查数据集
 mysheets = combined_data[['mysheets']]
 # 所有调查的年份
 yearName = combined_data[['yearName']]
+
 
 # data exploring example
 # 列出2015年所有数据
@@ -85,7 +89,6 @@ for (i in 1:(length(names(check_list)) - 1)) {
              paste(path_check_table_dir, paste(names(check_list)[i], '.xlsx', sep = ''), sep =
                      '/'))
 }
-
 
 # 在完成数据核对的同时，基于spp_all.csv文件构建千岛湖鸟类信息名录（拉丁名、生活型、留居类型等）
 # 相关操作写在./TILbird_database/bird_data_combined/README.txt中
@@ -106,7 +109,7 @@ source(paste(path_function_dir, 'data_reconstruction.R', sep = '/'))
 # 数据截止年份，按次年1月当年最后一次调查
 end_year = 2024
 # 进行数据表重构
-data_re = data_reconstruct(mysheets, end_year)
+data_re = data_reconstruct(mysheets, end_year, TILBirdList_raw)
 # data_re中的核对表及最终合并和过滤后的鸟类群落数据总表输入到硬盘
 for (i in names(data_re)) {
   if (nrow(as.data.frame(data_re[[i]])) != 0) {
@@ -148,6 +151,7 @@ final_data = abundance_month(large_bird_data_table, tran_all, sp_all, rep_seq)
 # abundance_month函数执行完会生成final_tran_data_check.xlsx和final_island_data_check.xlsx
 # 请对比这两个文件和total_raw_data_table.xlsx文件对应的数据
 flag = readline("请确认：final_tran_data_check.xlsx和final_island_data_check.xlsx与原始数据相同？Y/N \n")
+# flag = "Y"
 if (flag == "Y") {
   # 注：两个数据集中可能会出现如下情况：某条样线的某次调查中所有物种的多度为NA
   # 就放假情况表明，原始数据中该次调查有数据，但由于物种名不准确，导致数据被剔除
@@ -189,9 +193,12 @@ if (flag == "Y") {
   )
 }
 
-# 获得数据库中36个岛屿上所调查到的物种的中文名
-dim(SppIslMonthData.PA)
-dimnames(SppIslMonthData.PA)
-TILBirdList_unique$Chinese[match(rownames(SppTranMonthData), TILBirdList_unique$LatinWJ)]
+# 对生成的数据分别按岛屿和样本与原始数据集进行一一校对，以保证数据的可靠性 ####
 
-SppTranMonthData[, "I3", "202105", "1"]
+# 对原始数据和转换后样线水平的数据进行匹配检查即可
+# 岛屿水平的数据也来自
+source("./functions/match_raw_data_final_data.R")
+final_tran_data_check(all_raw_data_table,SppTranMonthData)
+final_island_data_check(all_raw_data_table,SppIslMonthData)
+
+
