@@ -196,9 +196,12 @@ if (flag == "Y") {
 # 对生成的数据分别按岛屿和样本与原始数据集进行一一校对，以保证数据的可靠性 ####
 
 # 对原始数据和转换后样线水平的数据进行匹配检查即可
-# 岛屿水平的数据也来自
+# abun.x为最终数据矩阵多度的值
+# abun.y为原始数据的多度值
 source("./functions/match_raw_data_final_data.R")
+# 样线水平的比较
 final_tran_data_check(all_raw_data_table,SppTranMonthData)
+# 岛屿水平的比较
 final_island_data_check(all_raw_data_table,SppIslMonthData)
 
 
