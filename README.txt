@@ -67,6 +67,9 @@ TILBirdDataBase/ (代码根目录)
   |-- TILBirdinfo_raw.txt (原始记录中所有鸟名记录信息表，用于将记录到的鸟名转为正确的拉丁学名)
   
   |-- TILBirdinfo_unique.txt (千岛湖鸟名记录信息表，最终数据物种中文名的核对和拉丁学名转中文名)
+  
+  |-- TIL_bird_data_extraction.R 用于繁殖季和越冬季鸟类群落数据提取
+  
 
 
 2. 原始数据表的命名规则及存放位置
