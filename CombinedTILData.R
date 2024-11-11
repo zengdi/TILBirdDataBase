@@ -112,9 +112,14 @@ end_year = 2024
 data_re = data_reconstruct(mysheets, end_year, TILBirdList_raw)
 # data_re中的核对表及最终合并和过滤后的鸟类群落数据总表输入到硬盘
 for (i in names(data_re)) {
-  if (nrow(as.data.frame(data_re[[i]])) != 0) {
+  if(i == "final_bird_data"){
     write.xlsx(as.data.frame(data_re[[i]]),
-               paste(path_check_table_dir, paste(i, '.xlsx', sep = ''), sep = '/'))
+               paste(path_database_dir, paste(i, '.xlsx', sep = ''), sep = '/'))
+  }else{
+    if (nrow(as.data.frame(data_re[[i]])) != 0) {
+      write.xlsx(as.data.frame(data_re[[i]]),
+                 paste(path_check_table_dir, paste(i, '.xlsx', sep = ''), sep = '/'))
+    }
   }
 }
 
