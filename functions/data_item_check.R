@@ -67,13 +67,14 @@ data_check = function(monthName,mysheets){
   colnames(time_duration_check_table) = c('month','transect','survey_order','time_began',
                                           'time_end','duration','status')
   # 创建调查次数核对表：rep_check_table
-  rep_check_table =  create_check_matrix(monthName,9)
+  rep_check_table =  create_check_matrix(monthName,15)
   
   # 创建调查人核对表：surveyor_check_table
-  surveyor_check_table = create_check_matrix(monthName,15)
+  surveyor_check_table = create_check_matrix(monthName,30)
   
   # 创建样线及重复次数核对表
-  tran_data_check_table = create_check_matrix(monthName,70)
+  # 这里的列数是按最大的样线数设定的（有些年份会把植物岛的调查样线加进来）
+  tran_data_check_table = create_check_matrix(monthName,95)
   # 样线重复数核对表，若返回character(0)代表没有问题,
   
   # 若样线重复调查有问题，则返回调查月份、有问题的样线名和有问题的调查次序
@@ -99,14 +100,15 @@ data_check = function(monthName,mysheets){
   # 遍历所有调查月份
   for(i in 1:length(monthName)){
     # 1. 测试代码,需要注释后运行 #####
-    # i = 23
+    # i = 105
     # 获得年
     yy = names(monthName[i])
     # 获得月
     mm = monthName[i]
     
-    #print(i)
-    #print(mm)
+    # debug #####
+    # print(paste("i",i))
+    # print(paste("month",mm))
     # 调查日期核对 ####
     # 统计当前月份的调查起始和结束日期，并赋值给日期核对表
     survey_range = range(names(table(mysheets[[yy]][[mm]][,2])))
@@ -155,7 +157,9 @@ data_check = function(monthName,mysheets){
     survey_order = unique(data_month$调查次数)
     # 遍历每次调查的数据
     for(order in survey_order){
-      # order = 1
+      # debug ####
+      # print(paste("order",order))
+      # order = 5
       # 获得每次调查的数据
       data_tmp = data_month[data_month$调查次数==order,]
       # 获得每次调查中的样线名
@@ -232,11 +236,18 @@ data_check = function(monthName,mysheets){
     # 获得每个调查月份的调查样线名称
     tran_info = table(mysheets[[yy]][[mm]][,1])
     # 将每月调查样线名称存放在样线数据核对表中
+    # debug ####
+    # print(paste("length of tran_info:",length(names(tran_info))))
+    # print(paste("ncol of tran_info:",ncol(tran_data_check_table)))
+    # print(paste("seq_col:",(length(tran_info)+1)))
+    
     tran_data_check_table[i,2:(length(tran_info)+1)] = names(tran_info)
     #按样线遍历数据
     for (j in 1:length(tran_info)) {
       # 2.测试代码，运行时注释#####
       # j = 1
+      # debug ####
+      # print(paste("j",j))
       # 从总数据集中取得指定月份指定样线的调查次数
       tran_name = names(tran_info)[j]
       rep_tran = table(subset(mysheets[[yy]][[mm]],样线==tran_name)[,6])
