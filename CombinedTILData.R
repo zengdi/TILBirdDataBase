@@ -15,13 +15,14 @@
 # (4) 按调查月份、岛屿和调查次序的0/1数据：SppIslMonthData.PA
 # (5) 36个岛屿参数，上述1-4个list的生成皆基于这36个岛屿名称
 # 具体的使用规则及数据要求详见README.txt
+# 最后一次运行：20241111
 
 ##### directory path construction #####
 # 清除上次结果命令，在debug和测试中不建议运行！！！
 system("rm ./final_database/*")
 system("rm ./check_tables/*")
 # 清除所有原有的环境变量，保证所有的数据和代码都是最新读取的
-remove(list = ls())
+rm(list = ls())
 # 获得工程所在目录
 path_base = getwd()
 # 设定原始记录所在日期目录(请确认是否是最新的原始数据！) #####
