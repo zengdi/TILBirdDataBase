@@ -546,7 +546,7 @@ bird_community = list(summer_month_tran_abun_max = summer_month_abun_max,
        bird_winter_abun_tran_year_max,
        bird_winter_abun_isl_year_max,
        bird_winter_abun_isl_year_sum,
-       file = str_c("./export_data/final_uncorrected_bird_data_abun",
+       file = str_c("./final_database/final_uncorrected_bird_data_abun",
                     date_stamp,".Rdata",sep=""))
 }
 
