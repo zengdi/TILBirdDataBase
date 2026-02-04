@@ -1,4 +1,4 @@
-Chinese,LatinWJ,English,resident,Landbird
+Chinese,LatinWJ,English,Resident,Landbird
 黑鸢,Milvus migrans,Black Kite,R,1
 黑耳鸢,Milvus migrans,Black Kite,R,1
 黒鸢,Milvus migrans,Black Kite,R,1

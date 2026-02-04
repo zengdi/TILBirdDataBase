@@ -1,4 +1,4 @@
-﻿Chinese,LatinWJ,English,Resident,Landbird
+Chinese,LatinWJ,English,Resident,Landbird
 棕脸鹟莺,Abroscopus albogularis,Rufous-faced Warbler,R,1
 苍鹰,Accipiter gentilis,Northern Goshawk,W,1
 日本松雀鹰,Accipiter gularis,Japanese Sparrow Hawk,P,1
