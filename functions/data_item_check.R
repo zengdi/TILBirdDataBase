@@ -123,7 +123,9 @@ data_check = function(monthName,mysheets){
     }
     
     # 只输出需要核对的记录
-    day_check_table = day_check_table %>% filter(status == "recheck")
+    day_check_table = day_check_table %>% 
+      as.data.frame %>% 
+      filter(status == "recheck")
     
     # 调查时间核对####
     # 获得当前月份数据调查时间的起始值范围
@@ -143,7 +145,9 @@ data_check = function(monthName,mysheets){
       time_check_table[mm,]['status'] = 'ok'
     }
     # 只输出需要检查的记录
-    time_check_table = time_check_table %>% filter(status == "recheck")
+    time_check_table = time_check_table %>% 
+      as.data.frame %>% 
+      filter(status == "recheck")
     
     # 检查每次调查的起始时间与终止时间差 #####
     data_month = mysheets[[yy]][[mm]]
