@@ -15,18 +15,18 @@
 # (4) 按调查月份、岛屿和调查次序的0/1数据：SppIslMonthData.PA
 # (5) 36个岛屿参数，上述1-4个list的生成皆基于这36个岛屿名称
 # 具体的使用规则及数据要求详见README.txt
-# 最后一次运行：20241111
+# 最后一次运行：20260205
 
 ##### directory path construction #####
 # 清除上次结果命令，在debug和测试中不建议运行！！！
-system("rm ./final_database/*")
+#system("rm ./final_database/*")
 system("rm ./check_tables/*")
 # 清除所有原有的环境变量，保证所有的数据和代码都是最新读取的
 rm(list = ls())
 # 获得工程所在目录
 path_base = getwd()
 # 设定原始记录所在日期目录(请确认是否是最新的原始数据！) #####
-date_dir = "20241010"
+date_dir = "20260205"
 message(paste("请确认原始数据所在日期目录：", date_dir))
 # 建立原始文档所在目录变量，用于读取原始鸟调数据
 path_raw_excel_dir = paste(path_base, 'raw_data', date_dir, sep = '/')
@@ -39,6 +39,13 @@ path_check_table_dir = paste(path_base, 'check_tables', sep = '/')
 # 岛屿参数存放目录变量，用于存放岛屿参数以及需要获得数据的岛屿和样线名称
 path_island_tran_dir = paste(path_base, 'island', sep = '/')
 
+# 加载文件名检查、sheet名检查和数据合并函数文件
+source(paste(
+  path_function_dir,
+  'raw_data_check_combined_function.R',
+  sep = '/'
+))
+
 # 导入物种名参考数据
 # 未去重的千岛湖鸟类名录（包括所有书写错误的物种名）
 TILBirdList_raw = read.delim(paste(path_base, 'TILBirdinfo_raw.txt', sep =
@@ -47,13 +54,6 @@ TILBirdList_raw = read.delim(paste(path_base, 'TILBirdinfo_raw.txt', sep =
 # 去重后的千岛湖鸟类名录（只包括正确的中文名、拉丁名的物种，且没有任何重复）
 TILBirdList_unique = read.delim(paste(path_base, 'TILBirdinfo_unique.txt', sep =
                                         '/'), sep = ',')
-
-# 加载文件名检查、sheet名检查和数据合并函数文件
-source(paste(
-  path_function_dir,
-  'raw_data_check_combined_function.R',
-  sep = '/'
-))
 
 # 整合所有的调查数据表，返回整合后的数据表以及调查年月组成的列表
 # 整合数据名为mysheets,调查年月日列表名为monthName
@@ -107,8 +107,8 @@ mysheets = check_list[['mysheets']]
 source(paste(path_function_dir, 'data_reconstruction.R', sep = '/'))
 # 最终数据生成
 # 起始年份
-# 数据截止年份，按次年1月当年最后一次调查
-end_year = 2024
+# 数据截止年份，按次年1月作为当年最后一次调查
+end_year = 2025
 # 进行数据表重构
 data_re = data_reconstruct(mysheets, end_year, TILBirdList_raw)
 # data_re中的核对表及最终合并和过滤后的鸟类群落数据总表输入到硬盘
